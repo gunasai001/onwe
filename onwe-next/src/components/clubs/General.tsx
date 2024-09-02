@@ -8,6 +8,58 @@ import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 import { useSession } from "@clerk/clerk-react";
 
+interface InputFieldProps {
+  label: string;
+  id: string;
+  type: 'text' | 'select' | 'textarea';
+  value: string;
+  onChange: (value: string) => void;
+}
+
+const InputField: React.FC<InputFieldProps> = ({ label, id, type, value, onChange }) => {
+  const inputClasses = "flex flex-col justify-center items-start text-xs font-medium tracking-wide bg-white rounded-lg w-[70vw]  text-zinc-700";
+
+  return (
+    <div className={inputClasses}>
+      <label htmlFor={id} className="sr-only">{label}</label>
+      {type === 'textarea' ? (
+        <textarea
+          id={id}
+          placeholder={label}
+          className="w-full bg-transparent resize-none"
+          rows={4}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      ) : type === 'select' ? (
+        <select
+          id={id}
+          className="w-full bg-transparent"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        >
+          <option value="general">General</option>
+          <option value="sports">Sports</option>
+          <option value="academia">Academia</option>
+          <option value="art">Art</option>
+          <option value="fashion">Fashion</option>
+          <option value="social">Social Engagement</option>
+          {/* Add more options here */}
+        </select>
+      ) : (
+        <input
+          type={type}
+          id={id}
+          placeholder={label}
+          className="w-full bg-transparent"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      )}
+    </div>
+  );
+};
+
 // const General = ({ posts, club }: { posts: PostsProps[], club: string }) => {
 const  General = ({ club }: { club: string }) => {
   const [createActive, setCreateActive] = useState(false);
@@ -83,6 +135,7 @@ const  General = ({ club }: { club: string }) => {
           );
         })}
       </div>
+      
       <button
         className="fixed sm:bottom-4 bottom-16 sm:right-14 right-10 bg-black font px-4 py-3 rounded-xl text-white font-semibold shadow-lg"
         onClick={handleCreateClick}
