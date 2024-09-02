@@ -2,8 +2,7 @@
 
 // import { AnimatedLinks } from "@/components/AnimatedLinks";
 import MiddleNavbar from "@/components/middle_component/MiddleNavbar";
-import RightCom from "@/components/right_component/right_component";
-
+import RightSide from "./Rightside";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="w-full flex">
@@ -15,7 +14,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {children}
         </div>
       </div>
-      <div className="lg:w-[40%] hidden lg:block bg-white"><RightCom /></div>
+      <div className="lg:w-[40%] hidden lg:block bg-white">
+        <RightSide />
+      </div>
     </div>
   );
 };
